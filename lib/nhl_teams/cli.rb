@@ -8,7 +8,6 @@ class CLI
             puts " Welcome to the official NHL team's documentation."
             puts " Let's start with your name: "
             API.get_data
-            binding.pry
             greet(user_input)
     end
 
@@ -24,8 +23,8 @@ class CLI
 
     # print out a list of all nhl teams
     def nhl_team_list
-        ["Bruins", "Sabres", "Red Wings"].each.with_index(1) do |team, i|
-            puts "#{i}. #{team}"
+        Team.all.each.with_index(1) do |team, i|
+            puts "#{i}. #{team.name}"
         end
         nhl_team_selection
     end
@@ -48,9 +47,19 @@ class CLI
         selection = user_input
 
         #puts "#{selection}"
-        Team.find_team(selection)
+        team = Team.find_team(selection)
+        team_details(team)
 
         # query our NHL class to find the teams detail
+    end
+
+    def team_details(team)
+        puts "Name: #{team.name}"
+        puts "Location: #{team.location}"
+        puts "Abbreviation: #{team.abbreviation}"
+        puts "Conference: #{team.conference}"
+        puts "Division: #{team.division}"
+        menu
     end
 
     def menu

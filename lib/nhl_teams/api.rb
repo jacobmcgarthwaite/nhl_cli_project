@@ -10,6 +10,7 @@ class API
        # binding.pry
         teams_array.each do |team|
            Team.new(team)
+           
         end
         
     end
